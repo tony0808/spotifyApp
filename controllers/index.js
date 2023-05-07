@@ -9,7 +9,7 @@ const get_about_page = (req, res) => {
 };
 
 const login = (req, res) => {
-    res.redirect(`https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user-read-private&code_challenge_method=S256&code_challenge=${CODE_CHALLENGE}`);
+    res.redirect(`https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user-read-private playlist-read-private&code_challenge_method=S256&code_challenge=${CODE_CHALLENGE}`);
 }
 
 const callback = async (req, res) => {
