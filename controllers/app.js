@@ -1,5 +1,5 @@
 const { userResponse } = require('./utils/postRequests');
-const { playlistResponse } = require('./utils/getRequests');
+const { getPlaylists, countTracks } = require('./utils/getRequests');
 
 const get_homepage = async (req, res) => {
     if (!req.session.access_token) {
@@ -10,10 +10,23 @@ const get_homepage = async (req, res) => {
     res.render('app/home', { title: 'Homepage', user });
 };
 
+const count_tracks = async (req, res) => {
+    try {
+        const userid = (await userResponse(req.session.access_token)).id;
+        const tracks = await countTracks(userid, req.session.access_token);
+        console.log(tracks);
+        res.status(200).json({ tracks });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({ err_msg: "error counting all playlists" });
+    }
+};
+
 const get_all_playlists = async (req, res) => {
     try {
         const userid = (await userResponse(req.session.access_token)).id;
-        const playlists = await playlistResponse(userid, req.session.access_token);
+        const playlists = await getPlaylists(userid, req.session.access_token);
         res.render('app/playlists/all', { playlists: playlists, title: 'All Playlists' });
     }
     catch (err) {
@@ -37,5 +50,6 @@ const logout = async (req, res) => {
 module.exports = {
     get_homepage,
     logout,
-    get_all_playlists
+    get_all_playlists,
+    count_tracks
 };
