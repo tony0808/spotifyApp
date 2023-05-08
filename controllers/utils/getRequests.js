@@ -26,7 +26,7 @@ const getPlaylistsIds = async (userid, access_token) => {
 const countTracks = async (userid, access_token) => {
     const playlistsIds = await getPlaylistsIds(userid, access_token);
     let no_tracks = 0;
-    for (let i = 1; i < playlistsIds.length; i++) {
+    for (let i = 0; i < playlistsIds.length; i++) {
         const options = {
             url: `https://api.spotify.com/v1/playlists/${playlistsIds[i]}/tracks`,
             headers: {
