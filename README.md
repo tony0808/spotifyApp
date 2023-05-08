@@ -23,12 +23,12 @@ Next, start the app by running npm start:
 
 npm start
 
-Once the app is running, you can visit http://localhost:3000 in your web browser and click on the login link to authorize the app to access your Spotify account. After you've authorized the app, you will be redirected to a page with a bunch of options. Then click on the "Count Tracks" and you are done.
+Once the app is running, you can visit http://localhost:3000 in your web browser and click on the login link to authorize the app to access your Spotify account. Once you have authorized the app, you will be redirected to a page with multiple options. Look for the "Count Tracks" option and click on it. That's it! You're done
 
 # Contributing
 
-If you'd like to contribute to this project, feel free to submit a pull request! Please ensure that your code follows the existing style and that you've tested your changes thoroughly.
+If you'd like to contribute to this project, feel free to submit a pull request!
 
 # Acknowledgements
 
-This project was inspired by the lack of a track counting feature in the original Spotify app. Special thanks to the Spotify Developer team for providing an easy-to-use API that made this project possible.
+This project was inspired by the lack of a track counting feature in the original Spotify app. 
