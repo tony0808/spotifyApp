@@ -6,8 +6,8 @@ Spotify Track Counter is a Node.js project that interacts with the Spotify API t
 
 To get started, clone this repository and install the necessary dependencies using npm:
 
-git clone https://github.com/your-username/spotify-track-counter.git
-cd spotify-track-counter
+git clone https://github.com/tony0808/spotifyApp.git
+cd spotifyApp
 npm install
 
 ## Usage
