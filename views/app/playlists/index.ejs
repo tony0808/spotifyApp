@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <header class="header-container">
+        <h1>Manage Playlists</h1>
+        <%- include('../partials/nav.ejs') %>
+    </header>
+    <main id="manage-playlists-main">
+        <nav>
+          <ul>
+            <li><button type="button" onclick="getPlaylistCount()">Count My Playlist</button></li>
+            <li><button type="button" onclick="getPlaylistsList()">List My Playlists</button></li>
+          </ul>
+        </nav>
+        <div id="playlist-response-div">
+          
+        </div>
+    </main>      
+    <%- include('../partials/footer.ejs') %>
+    <script type="text/javascript" src="/scripts.js"></script>
+</body>
+</html>

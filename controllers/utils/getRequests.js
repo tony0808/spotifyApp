@@ -41,6 +41,18 @@ const countTracks = async (userid, access_token) => {
     return no_tracks;
 };
 
+const countPlaylists = async (userid, access_token) => {
+    const options = {
+        url: `https://api.spotify.com/v1/users/${userid}/playlists`,
+        headers: {
+            'Authorization': 'Bearer ' + access_token
+        },
+        json: true
+    };
+    const response = await rp.get(options);
+    return response.total;
+};
+
 const getPlaylists = async (userid, access_token) => {
 
     const playlists = [];
@@ -62,10 +74,11 @@ const getPlaylists = async (userid, access_token) => {
         playlists.push(...response.items);
         offset += limit;
     }
-    return playlists;
+    return playlists.map(playlist => ({ name: playlist.name, id: playlist.id }));
 };
 
 module.exports = {
     getPlaylists,
+    countPlaylists,
     countTracks
 };

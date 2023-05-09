@@ -2,10 +2,20 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 <body>
-    <header>
+    <header class="header-container">
         <h1>About</h1>
         <%- include('./partials/nav.ejs') %>
     </header>
+    <main>
+        <div class="main-container">
+          <h2>What is this app?</h2>
+          <p>This app is a Node.js application that uses the Spotify API to count all user's tracks. With this app, you can log in with your Spotify account and see how many tracks you have in your library.</p>
+          <h2>How does it work?</h2>
+          <p>To use this app, you need to log in with your Spotify account. Once you have authorized the app, you will be redirected to a page with multiple options. Look for the "Count Tracks" option and click on it. That's it! You're done</p>
+          <h2>Who made this app?</h2>
+          <p>This app was made by Tony.</p>
+        </div>
+      </main>
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>

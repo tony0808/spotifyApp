@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <header class="header-container">
+        <h1>Manage Tracks</h1>
+        <%- include('../partials/nav.ejs') %>
+    </header>
+    <main id="manage-tracks-main">
+        <nav>
+          <ul>
+            <li><button type="button" onclick="getTrackCount()">Count My Tracks</button></li>
+          </ul>
+        </nav>
+        <div id="track-response-div">
+          
+        </div>
+    </main>      
+    <%- include('../partials/footer.ejs') %>
+    <script type="text/javascript" src="/scripts.js"></script>
+</body>
+</html>
