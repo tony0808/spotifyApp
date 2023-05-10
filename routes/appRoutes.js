@@ -15,6 +15,7 @@ router.get('/playlists/list', playlistController.get_playlists);
 
 // track controller 
 router.get('/tracks/count', trackController.count_tracks);
+router.get('/tracks/distribute', trackController.get_distributed_tracks_by_genre);
 
 // other
 router.get('/logout', appController.logout);
