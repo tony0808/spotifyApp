@@ -59,7 +59,8 @@ nav ul li a:hover {
 }
 
 .main-container h2 {
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .main-container p {
@@ -170,5 +171,33 @@ nav ul li a:hover {
 }
 
 #manage-tracks-main button:hover {
+  text-decoration: underline;
+}
+
+/* Contact info styles */
+.contact-info {
+  width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+.contact-info p {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 18px;
+}
+
+.contact-info p span {
+  font-weight: bold;
+}
+
+.contact-info a {
+  color: #0077b5;
+}
+
+.contact-info a:hover {
   text-decoration: underline;
 }

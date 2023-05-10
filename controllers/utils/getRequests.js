@@ -24,21 +24,33 @@ const getPlaylistsIds = async (userid, access_token) => {
 };
 
 const countTracks = async (userid, access_token) => {
-    const playlistsIds = await getPlaylistsIds(userid, access_token);
-    let no_tracks = 0;
-    for (let i = 0; i < playlistsIds.length; i++) {
+
+
+    let totalTracks = 0;
+    let limit = 50;
+    let offset = 0;
+
+    while (true) {
         const options = {
-            url: `https://api.spotify.com/v1/playlists/${playlistsIds[i]}/tracks`,
+            url: `https://api.spotify.com/v1/users/${userid}/playlists?limit=${limit}&offset=${offset}`,
             headers: {
                 'Authorization': 'Bearer ' + access_token
             },
             json: true
         };
         const response = await rp.get(options);
-        console.log(no_tracks);
-        no_tracks += response.total;
+        const items = response.items;
+        for (let i = 0; i < response.items.length; i++) {
+            const item = items[i];
+            const tracks = item.tracks;
+            totalTracks += tracks.total;
+        }
+        offset += limit;
+        if (offset > response.total) {
+            break;
+        }
     }
-    return no_tracks;
+    return totalTracks;
 };
 
 const countPlaylists = async (userid, access_token) => {
