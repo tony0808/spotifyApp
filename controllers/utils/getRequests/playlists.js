@@ -1,4 +1,22 @@
 const rp = require('request-promise-native');
+const { getTrackGenres } = require('./tracks');
+
+const getPlaylistGenres = async (access_token, playlistId) => {
+    const options = {
+        url: `https://api.spotify.com/v1/playlists/${playlistId}`,
+        headers: {
+            'Authorization': 'Bearer ' + access_token
+        },
+        json: true
+    };
+    const playlist = await rp.get(options);
+    const genres = new Set();
+    await Promise.all(playlist.tracks.items.map(async (item) => {
+        const track_genres = await getTrackGenres(access_token, item.track.id);
+        track_genres.forEach((genre) => genres.add(genre));
+    }));
+    return Array.from(genres);
+};
 
 const getPlaylistTracks = async (access_token, playlistId) => {
     const options = {
@@ -59,5 +77,6 @@ const getPlaylists = async (userid, access_token) => {
 module.exports = {
     getPlaylists,
     countPlaylists,
-    getPlaylistTracks
+    getPlaylistTracks,
+    getPlaylistGenres
 };

@@ -118,8 +118,16 @@ function geTrackIdForm() {
         });
 }
 
-function gePlaylistIdForm() {
-    fetch('/app/playlists/playlist_id_form')
+function gePlaylistIdTrackForm() {
+    fetch('/app/playlists/playlist_id_track_form')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("playlist-response-div").innerHTML = html;
+        });
+}
+
+function gePlaylistIdGenreForm() {
+    fetch('/app/playlists/playlist_id_genre_form')
         .then(response => response.text())
         .then(html => {
             document.getElementById("playlist-response-div").innerHTML = html;
@@ -211,6 +219,37 @@ function getPlaylistTracks() {
         }
     };
     xhttp.open("GET", domain + "app/playlists/" + playlistId + '/tracks');
+    xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+    xhttp.send();
+    return false;
+}
+
+function getPlaylistGenres() {
+    const xhttp = new XMLHttpRequest();
+    const playlistId = document.getElementById('playlist-id').value;
+    xhttp.onreadystatechange = function () {
+        clearResponseTextDiv('playlist-response-div');
+        if (xhttp.readyState === 4) {
+            if (xhttp.status === 200) {
+                const genres = JSON.parse(xhttp.responseText)
+                const playlistDynamicDiv = document.getElementById('playlist-response-div');
+                const genresList = document.createElement('ul');
+                genresList.id = 'genre-list';
+                genresList.classList.add('genre-list');
+                genres.genres.forEach((genre) => {
+                    const genreItem = document.createElement('li');
+                    genreItem.textContent = genre;
+                    genreItem.classList.add('genre-item');
+                    genresList.appendChild(genreItem);
+                });
+                playlistDynamicDiv.appendChild(genresList);
+            }
+            else {
+
+            }
+        }
+    };
+    xhttp.open("GET", domain + "app/playlists/" + playlistId + '/genres');
     xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
     xhttp.send();
     return false;
