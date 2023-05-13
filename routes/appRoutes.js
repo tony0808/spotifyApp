@@ -12,10 +12,13 @@ router.get('/tracks/manage', appController.get_tracks_index_page);
 // playlist controller
 router.get('/playlists/count', playlistController.get_playlists_count);
 router.get('/playlists/list', playlistController.get_playlists);
+router.get('/playlists/playlist_id_form', playlistController.get_playlist_id_form);
+router.get('/playlists/:id/tracks', playlistController.get_playlist_tracks);
 
 // track controller 
-router.get('/tracks/count', trackController.count_tracks);
-router.get('/tracks/distribute', trackController.get_distributed_tracks_by_genre);
+router.get('/tracks/count', trackController.tracks_count);
+router.get('/tracks/genres/:id', trackController.track_genres);
+router.get('/tracks/track_id_form', trackController.get_track_id_form);
 
 // other
 router.get('/logout', appController.logout);

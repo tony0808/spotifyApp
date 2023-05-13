@@ -1,4 +1,4 @@
-const { REDIRECT_URI, CODE_VERIFIER, CODE_CHALLENGE } = require('./appConstants');
+const { REDIRECT_URI, CODE_VERIFIER, CODE_CHALLENGE } = require('../appConstants');
 const rp = require('request-promise-native');
 
 const tokenResponse = async (code) => {

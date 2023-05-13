@@ -1,4 +1,4 @@
-const { userResponse } = require('./utils/postRequests');
+const { userResponse } = require('./utils/postRequests/auth');
 
 const get_homepage = async (req, res) => {
     if (!req.session.access_token) {

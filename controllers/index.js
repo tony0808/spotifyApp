@@ -1,5 +1,5 @@
 const { REDIRECT_URI, CODE_CHALLENGE } = require('./utils/appConstants');
-const pr = require('./utils/postRequests');
+const pr = require('./utils/postRequests/auth');
 
 const get_about_page = (req, res) => {
     res.render('index/about', { title: 'About Page' });

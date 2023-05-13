@@ -116,27 +116,59 @@ nav ul li a:hover {
 .playlist-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .playlist-info {
   display: flex;
   flex-direction: row;
   gap: 20px;
+  align-items: center;
 }
 
 .playlist-name {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0;
+  color: #333;
 }
 
 .playlist-id {
-  font-size: 12px;
+  font-size: 14px;
   margin: 0;
   color: #757373;
 }
+
+.playlist-description {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
+}
+
+.playlist-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.playlist-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.playlist-info:hover {
+  background-color: #cccbcb;
+}
+
 
 /* tracks main container styles */
 #manage-tracks-main {
@@ -200,4 +232,92 @@ nav ul li a:hover {
 
 .contact-info a:hover {
   text-decoration: underline;
+}
+
+/* track id form styles*/
+#track-id-form, #playlist-id-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+#track-id-form label, #playlist-id-form label {
+  margin-bottom: 10px;
+}
+
+#track-id-form input[type="text"], #playlist-id-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+#track-id-form button[type="submit"], #playlist-id-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#track-id-form button[type="submit"]:hover, #playlist-id-form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* track genres list style */
+.genre-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 0 0 0; /* add 10px padding at the top */
+  list-style-type: none;
+}
+
+.genre-item {
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.genre-item:hover {
+  background-color: #d9d9d9;
+}
+
+/* styles for table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+tbody td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #e6e6e6;
 }
