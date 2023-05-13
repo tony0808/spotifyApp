@@ -5,11 +5,32 @@ function clearResponseTextDiv(div_id) {
     playlistInfoDiv.innerHTML = "";
 }
 
-function getPlaylistCount() {
+function clearPlaylistButtonHighlight() {
+    const buttons = document.querySelectorAll('#manage-playlists-main button');
+    buttons.forEach(button => {
+        button.style.backgroundColor = 'transparent';
+    });
+}
+
+function clearTrackButtonHighlight() {
+    const buttons = document.querySelectorAll('#manage-tracks-main button');
+    buttons.forEach(button => {
+        button.style.backgroundColor = 'transparent';
+    });
+}
+
+function highLighButton(btn_id) {
+    const myButton = document.getElementById(btn_id);
+    myButton.style.backgroundColor = '#FFC107';
+}
+
+function getPlaylistCount(btn_id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        clearResponseTextDiv('playlist-response-div');
         if (xhttp.readyState === 4) {
+            clearPlaylistButtonHighlight()
+            clearResponseTextDiv('playlist-response-div');
+            highLighButton(btn_id);
             if (xhttp.status === 200) {
                 const responseObj = JSON.parse(xhttp.responseText);
                 const count = responseObj.count;
@@ -36,11 +57,13 @@ function getPlaylistCount() {
     return false;
 }
 
-function getPlaylistsList() {
+function getPlaylistsList(btn_id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
+            clearPlaylistButtonHighlight()
             clearResponseTextDiv('playlist-response-div');
+            highLighButton(btn_id);
             if (xhttp.status === 200) {
                 const responseObj = JSON.parse(xhttp.responseText);
                 const playlists = responseObj.playlists;
@@ -79,11 +102,33 @@ function getPlaylistsList() {
     return false;
 }
 
-function getTrackCount() {
+function gePlaylistIdTrackForm(btn_id) {
+    clearPlaylistButtonHighlight()
+    highLighButton(btn_id);
+    fetch('/app/playlists/playlist_id_track_form')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("playlist-response-div").innerHTML = html;
+        });
+}
+
+function gePlaylistIdGenreForm(btn_id) {
+    clearPlaylistButtonHighlight()
+    highLighButton(btn_id);
+    fetch('/app/playlists/playlist_id_genre_form')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("playlist-response-div").innerHTML = html;
+        });
+}
+
+function getTrackCount(btn_id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        clearResponseTextDiv('track-dynamic-div');
         if (xhttp.readyState === 4) {
+            clearResponseTextDiv('track-dynamic-div');
+            clearTrackButtonHighlight();
+            highLighButton(btn_id);
             if (xhttp.status === 200) {
                 const responseObj = JSON.parse(xhttp.responseText);
                 const count = responseObj.count;
@@ -110,30 +155,6 @@ function getTrackCount() {
     return false;
 }
 
-function geTrackIdForm() {
-    fetch('/app/tracks/track_id_form')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("track-dynamic-div").innerHTML = html;
-        });
-}
-
-function gePlaylistIdTrackForm() {
-    fetch('/app/playlists/playlist_id_track_form')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("playlist-response-div").innerHTML = html;
-        });
-}
-
-function gePlaylistIdGenreForm() {
-    fetch('/app/playlists/playlist_id_genre_form')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("playlist-response-div").innerHTML = html;
-        });
-}
-
 function getTrackGenres() {
     const xhttp = new XMLHttpRequest();
     const trackId = document.getElementById('track-id').value;
@@ -142,6 +163,7 @@ function getTrackGenres() {
         if (xhttp.readyState === 4) {
             if (xhttp.status === 200) {
                 const genres = JSON.parse(xhttp.responseText);
+                console.log(genres);
                 const trackDynamicDiv = document.getElementById('track-dynamic-div');
                 const genresList = document.createElement('ul');
                 genresList.id = 'genre-list';
@@ -163,6 +185,16 @@ function getTrackGenres() {
     xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
     xhttp.send();
     return false;
+}
+
+function geTrackIdForm(btn_id) {
+    clearTrackButtonHighlight();
+    highLighButton(btn_id);
+    fetch('/app/tracks/track_id_form')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("track-dynamic-div").innerHTML = html;
+        });
 }
 
 function getPlaylistTracks() {

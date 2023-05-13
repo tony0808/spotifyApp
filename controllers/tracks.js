@@ -8,6 +8,7 @@ const get_track_id_form = async (req, res) => {
 const track_genres = async (req, res) => {
     try {
         const genres = await getTrackGenres(req.session.access_token, req.params.id);
+        console.log(genres);
         res.status(200).json({ genres });
     }
     catch (err) {

@@ -9,10 +9,10 @@
     <main id="manage-playlists-main">
         <nav>
           <ul>
-            <li><button type="button" onclick="getPlaylistCount()">Count My Playlist</button></li>
-            <li><button type="button" onclick="getPlaylistsList()">List My Playlists</button></li>
-            <li><button type="button" onclick="gePlaylistIdTrackForm()">List My Playlist's Tracks</button></li>
-            <li><button type="button" onclick="gePlaylistIdGenreForm()">List My Playlist's Genres</button></li>
+            <li><button type="button" id="playlist_btn_1" onclick="getPlaylistCount(this.id)">Count My Playlist</button></li>
+            <li><button type="button" id="playlist_btn_2" onclick="getPlaylistsList(this.id)">List My Playlists</button></li>
+            <li><button type="button" id="playlist_btn_3" onclick="gePlaylistIdTrackForm(this.id)">List My Playlist's Tracks</button></li>
+            <li><button type="button" id="playlist_btn_4" onclick="gePlaylistIdGenreForm(this.id)">List My Playlist's Genres</button></li>
           </ul>
         </nav>
         <div id="playlist-response-div">
