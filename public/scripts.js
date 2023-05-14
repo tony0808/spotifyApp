@@ -5,15 +5,8 @@ function clearResponseTextDiv(div_id) {
     playlistInfoDiv.innerHTML = "";
 }
 
-function clearPlaylistButtonHighlight() {
-    const buttons = document.querySelectorAll('#manage-playlists-main button');
-    buttons.forEach(button => {
-        button.style.backgroundColor = 'transparent';
-    });
-}
-
-function clearTrackButtonHighlight() {
-    const buttons = document.querySelectorAll('#manage-tracks-main button');
+function clearButtonHighlight(query) {
+    const buttons = document.querySelectorAll(query);
     buttons.forEach(button => {
         button.style.backgroundColor = 'transparent';
     });
@@ -28,7 +21,7 @@ function getPlaylistCount(btn_id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
-            clearPlaylistButtonHighlight()
+            clearButtonHighlight("#manage-playlists-main button")
             clearResponseTextDiv('playlist-response-div');
             highLighButton(btn_id);
             if (xhttp.status === 200) {
@@ -61,7 +54,7 @@ function getPlaylistsList(btn_id) {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
-            clearPlaylistButtonHighlight()
+            clearButtonHighlight("#manage-playlists-main button")
             clearResponseTextDiv('playlist-response-div');
             highLighButton(btn_id);
             if (xhttp.status === 200) {
@@ -80,16 +73,29 @@ function getPlaylistsList(btn_id) {
                     playlistId.setAttribute('class', 'playlist-id');
                     playlistId.innerText = playlist.id;
 
+                    const playlistButton = document.createElement('button');
+                    playlistButton.setAttribute('class', 'playlist-copy-button');
+                    playlistButton.innerHTML = '<img src="/pics/copy.png" alt="Copy icon" width="15px" height="15px">';
+                    playlistButton.addEventListener('click', () => {
+                        copyTextToClipboard(playlist.id);
+                    });
+
+                    const playlistIdWrapper = document.createElement('div');
+                    playlistIdWrapper.setAttribute('class', 'playlist-id-wrapper');
+                    playlistIdWrapper.appendChild(playlistId);
+                    playlistIdWrapper.appendChild(playlistButton);
+
                     const playlistInfo = document.createElement('div');
                     playlistInfo.setAttribute('class', 'playlist-info');
                     playlistInfo.appendChild(playlistName);
-                    playlistInfo.appendChild(playlistId);
+                    playlistInfo.appendChild(playlistIdWrapper);
 
                     playlistDiv.appendChild(playlistInfo);
                 });
 
                 const responseContainer = document.getElementById('playlist-response-div');
                 responseContainer.appendChild(playlistDiv);
+
             }
             else {
 
@@ -103,7 +109,7 @@ function getPlaylistsList(btn_id) {
 }
 
 function gePlaylistIdTrackForm(btn_id) {
-    clearPlaylistButtonHighlight()
+    clearButtonHighlight("#manage-playlists-main button")
     highLighButton(btn_id);
     fetch('/app/playlists/playlist_id_track_form')
         .then(response => response.text())
@@ -113,7 +119,7 @@ function gePlaylistIdTrackForm(btn_id) {
 }
 
 function gePlaylistIdGenreForm(btn_id) {
-    clearPlaylistButtonHighlight()
+    clearButtonHighlight("#manage-playlists-main button")
     highLighButton(btn_id);
     fetch('/app/playlists/playlist_id_genre_form')
         .then(response => response.text())
@@ -127,7 +133,7 @@ function getTrackCount(btn_id) {
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4) {
             clearResponseTextDiv('track-dynamic-div');
-            clearTrackButtonHighlight();
+            clearButtonHighlight("#manage-tracks-main button");
             highLighButton(btn_id);
             if (xhttp.status === 200) {
                 const responseObj = JSON.parse(xhttp.responseText);
@@ -188,7 +194,7 @@ function getTrackGenres() {
 }
 
 function geTrackIdForm(btn_id) {
-    clearTrackButtonHighlight();
+    clearButtonHighlight("#manage-tracks-main button");
     highLighButton(btn_id);
     fetch('/app/tracks/track_id_form')
         .then(response => response.text())
@@ -204,6 +210,7 @@ function getPlaylistTracks() {
         clearResponseTextDiv('playlist-response-div');
         if (xhttp.readyState === 4) {
             if (xhttp.status === 200) {
+                // Create table headers
                 const tracks = JSON.parse(xhttp.responseText).tracks;
                 const table = document.createElement('table');
                 const thead = document.createElement('thead');
@@ -228,6 +235,19 @@ function getPlaylistTracks() {
                     createdAtTd.innerText = created_at;
                     const idTd = document.createElement('td');
                     idTd.innerText = track.id;
+                    const copyButton = document.createElement('button');
+                    copyButton.setAttribute('class', 'copy-button');
+                    copyButton.addEventListener('click', function () {
+                        copyTextToClipboard(track.id);
+                    });
+                    const copyImage = document.createElement('img');
+                    copyImage.src = '/pics/copy.png';
+                    copyImage.setAttribute('class', 'copy-button-img ');
+                    copyButton.appendChild(copyImage);
+                    copyButton.addEventListener('click', () => {
+                        navigator.clipboard.writeText(track.id);
+                    });
+                    idTd.appendChild(copyButton);
                     const nameTd = document.createElement('td');
                     nameTd.innerText = track.name;
                     const durationTd = document.createElement('td');
@@ -244,6 +264,7 @@ function getPlaylistTracks() {
                 // Add table to div with id "playlist-response-div"
                 const playlistResponseDiv = document.getElementById('playlist-response-div');
                 playlistResponseDiv.appendChild(table);
+
             }
             else {
 
@@ -285,4 +306,24 @@ function getPlaylistGenres() {
     xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
     xhttp.send();
     return false;
+}
+
+function copyTextToClipboard(text) {
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            console.log(`Text "${text}" copied to clipboard.`);
+        })
+        .catch((err) => {
+            console.error(`Failed to copy text "${text}" to clipboard: ${err}`);
+        });
+}
+
+function pasteTextFromClipboard(input_id) {
+    navigator.clipboard.readText()
+        .then(text => {
+            document.getElementById(input_id).value = text;
+        })
+        .catch(err => {
+            console.error('Failed to read clipboard contents: ', err);
+        });
 }

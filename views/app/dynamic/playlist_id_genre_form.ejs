@@ -1,7 +1,13 @@
-<form id="playlist-id-form">
-    <label for="playlist-id">Playlist ID:</label>
-    <input type="text" id="playlist-id" name="playlist_id">
-    <br>
-    <button type="submit" onclick="getPlaylistGenres()">Submit</button>
-</form>
-  
+<div class="container">
+    <form id="playlist-id-form">
+      <div class="form-group">
+        <label for="playlist-id">Playlist ID:</label>
+        <button type="button" id="copy-button" onclick="pasteTextFromClipboard('playlist-id')">
+          <img src="/pics/copy.png" alt="Copy" width="15" height="15">
+        </button>
+      </div>
+      <input type="text" id="playlist-id" name="playlist_id">
+      <br>
+      <button type="submit" onclick="getPlaylistGenres()">Submit</button>
+    </form>
+  </div>
